@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getUserById, postLogin } from "@/services/auth";
 import { useFormik } from "formik";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -19,7 +19,7 @@ const IniciarSesion = ()=>{
   const [showPassword, setShowPassword] = useState(false);
 //   const { saveUserData } = useAuthContext();
 //   const { saveCartData } = useCartContext();
-  const router = useRouter();
+//   const router = useRouter();
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
