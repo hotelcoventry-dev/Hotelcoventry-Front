@@ -62,8 +62,8 @@ const IniciarSesion = ()=>{
 
         toast.success("Sesión iniciada correctamente");
         //router.push(routes.home);
-      } catch (error: any) {
-        toast.error(error?.response.data.message || "Error al iniciar sesión");
+      } catch (error: unknown) {
+        //toast.error(error?.response.data.message || "Error al iniciar sesión");
         console.error(error);
       } finally {
         setLoading(false);

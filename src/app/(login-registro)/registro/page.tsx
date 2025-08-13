@@ -78,10 +78,11 @@ const Register = () => {
         }, 2000);
 
         resetForm();
-      } catch (error: any) {
-        toast.error(
-          error?.response?.data?.message || "Error al registrar el usuario"
-        );
+      } catch (error: unknown) {
+        console.log(error)
+        // toast.error(
+        //   error?.response?.data?.message || "Error al registrar el usuario"
+        // );
       } finally {
         setSubmitting(false);
       }
