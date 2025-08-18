@@ -121,7 +121,7 @@ const IniciarSesion = ()=>{
         </a>
       </div>
 
-      <Button type="submit" className="w-full bg-[#005F2D] hover:bg-[#267B21]" disabled={loading}>
+      <Button type="submit" className="w-full text-white bg-[#005F2D] hover:bg-[#267B21]" disabled={loading}>
         {loading ? "Ingresando..." : "Ingresar"}
       </Button>
 
