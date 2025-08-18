@@ -218,7 +218,7 @@ const Register = () => {
       )}
 
 
-      <Button type="submit" className="w-full bg-[#005F2D] hover:bg-[#267B21]" disabled={formik.isSubmitting}>
+      <Button type="submit" className="w-full text-white bg-[#005F2D] hover:bg-[#267B21]" disabled={formik.isSubmitting}>
         {formik.isSubmitting ? "Registrando..." : "Registrarse"}
       </Button>
     </form>
