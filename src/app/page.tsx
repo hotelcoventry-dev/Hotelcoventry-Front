@@ -1,17 +1,9 @@
 'use client'
 import Image from "next/image";
-import styles from "./page.module.css";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
 import IniciarSesion from "./login-registro/login/page";
-import Register from "./login-registro/registro/page";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<"login" | "registro">("login");
-  const pathname = usePathname();
-  const isLogin = pathname === "/login";
-  const isRegister = pathname === "/registro";
   return (
     <div className="flex min-h-screen">
       {/* Lado izquierdo */}
@@ -65,36 +57,10 @@ export default function Home() {
           </h1>
 
           <p className="mb-6 text-center text-black md:text-gray-500">
-            Ingresá a tu cuenta o registrate para ser parte
+            Ingresá a tu cuenta
           </p>
 
-           {/* Tabs controlados por estado */}
-          <div className="flex mb-4 bg-gray-100 rounded-md overflow-hidden">
-            <button
-              onClick={() => setActiveTab("login")}
-              className={`flex-1 text-center py-2 text-sm font-medium ${
-                activeTab === "login"
-                  ? "bg-white text-black shadow-sm"
-                  : "text-gray-500"
-              }`}
-            >
-              Ingresar
-            </button>
-            <button
-              onClick={() => setActiveTab("registro")}
-              className={`flex-1 text-center py-2 text-sm font-medium ${
-                activeTab === "registro"
-                  ? "bg-white text-black shadow-sm"
-                  : "text-gray-500"
-              }`}
-            >
-              Registrarse
-            </button>
-          </div>
-
-          {/* Mostrar form según tab */}
-          {activeTab === "login" && <IniciarSesion />}
-          {activeTab === "registro" && <Register />}
+          <IniciarSesion />
 
           <Link
             href="/"
