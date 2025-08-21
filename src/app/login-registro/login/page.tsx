@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getUserById, postLogin } from "@/services/auth";
@@ -12,14 +12,12 @@ import * as Yup from "yup";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
-
-const IniciarSesion = ()=>{
-    const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
+const IniciarSesion = () => {
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-//   const { saveUserData } = useAuthContext();
-//   const { saveCartData } = useCartContext();
-//   const router = useRouter();
+  //   const { saveUserData } = useAuthContext();
+  //   const { saveCartData } = useCartContext();
+  //   const router = useRouter();
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
@@ -57,7 +55,7 @@ const IniciarSesion = ()=>{
         // });
 
         if (dataUser.cart && dataUser.cart.items.length > 0) {
-        //   saveCartData({ cart: dataUser.cart });
+          //   saveCartData({ cart: dataUser.cart });
         }
 
         toast.success("Sesión iniciada correctamente");
@@ -70,11 +68,6 @@ const IniciarSesion = ()=>{
       }
     },
   });
-
-  const handleGoogleLogin = () => {
-    setGoogleLoading(true);
-    window.location.href = `${BACKEND_URL}/auth/google`;
-  };
 
   return (
     <form onSubmit={formik.handleSubmit} className="space-y-4">
@@ -121,23 +114,15 @@ const IniciarSesion = ()=>{
         </a>
       </div>
 
-      <Button type="submit" className="w-full text-white bg-[#005F2D] hover:bg-[#267B21]" disabled={loading}>
-        {loading ? "Ingresando..." : "Ingresar"}
-      </Button>
-
       <Button
-        type="button"
-        onClick={handleGoogleLogin}
-        disabled={googleLoading}
-        className="w-full bg-gray-100 hover:bg-gray-200 text-black border border-gray-300 flex items-center justify-center gap-2"
+        type="submit"
+        className="w-full text-white bg-[#005F2D] hover:bg-[#267B21]"
+        disabled={loading}
       >
-        <FcGoogle className="w-5 h-5" />
-        {googleLoading
-          ? "Conectando con Google..."
-          : "Iniciar sesión con Google"}
+        {loading ? "Ingresando..." : "Ingresar"}
       </Button>
     </form>
   );
-}
+};
 
-export default IniciarSesion
+export default IniciarSesion;
