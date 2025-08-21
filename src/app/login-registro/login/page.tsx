@@ -1,9 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getUserById, postLogin } from "@/services/auth";
+import { useAuthContext } from "@/context/authContext";
+import { postLogin } from "@/services/auth";
 import { useFormik } from "formik";
-// import { useRouter } from "next/navigation";
+import { routes } from "@/routes";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
@@ -15,53 +17,42 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 const IniciarSesion = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  //   const { saveUserData } = useAuthContext();
+  const { saveUserData } = useAuthContext();
   //   const { saveCartData } = useCartContext();
-  //   const router = useRouter();
+  const router = useRouter();
 
   const formik = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { EmployeeNumber: "", password: "" },
     validationSchema: Yup.object({
-      email: Yup.string().email("Email inválido").required("Requerido"),
+      EmployeeNumber: Yup.number().required("Requerido"),
       password: Yup.string().required("Requerido"),
     }),
     onSubmit: async (values) => {
       setLoading(true);
       try {
-        const response = await postLogin(values);
-        const userId = response.data.user.id;
-        const Token = response.data.accessToken;
-        const dataUser = await getUserById(userId, Token);
+        const response = await postLogin({
+          ...values,
+          EmployeeNumber: Number(values.EmployeeNumber),
+        });
+        // const dataUser = response.data.user;
+        // const Token = response.data.accessToken;
 
         // saveUserData({
         //   accessToken: Token,
         //   user: {
-        //     id: userId,
-        //     name: dataUser.name,
+        //     id: dataUser.id,
+        //     EmployeeNumber: dataUser.EmployeeNumber,
         //     username: dataUser.username,
-        //     birthdate: dataUser.birthdate,
-        //     phone: dataUser.phone,
-        //     email: dataUser.email,
-        //     isAdmin: dataUser.isAdmin,
-        //     isSuperAdmin: dataUser.isSuperAdmin,
-        //     isDonator: dataUser.isDonator,
-        //     address: dataUser.address,
-        //     donates: dataUser.donates,
-        //     orders: dataUser.orders,
-        //     appointments: dataUser.appointments,
-        //     cart: dataUser.cart,
+        //     isReceptionist: dataUser.isReceptionist,
+        //     isManager: dataUser.isManager,
         //   },
         //   isAuth: true,
         // });
-
-        if (dataUser.cart && dataUser.cart.items.length > 0) {
-          //   saveCartData({ cart: dataUser.cart });
-        }
-
+        console.log("hola")
         toast.success("Sesión iniciada correctamente");
-        //router.push(routes.home);
+        router.push(routes.admin);
       } catch (error: unknown) {
-        //toast.error(error?.response.data.message || "Error al iniciar sesión");
+        // toast.error(error?.response.data.message || "Error al iniciar sesión");
         console.error(error);
       } finally {
         setLoading(false);
@@ -73,14 +64,14 @@ const IniciarSesion = () => {
     <form onSubmit={formik.handleSubmit} className="space-y-4">
       <div>
         <Input
-          type="email"
-          name="email"
-          placeholder="tu@email.com"
-          value={formik.values.email}
+          type="number"
+          name="EmployeeNumber"
+          placeholder="Número de empleado"
+          value={formik.values.EmployeeNumber}
           onChange={formik.handleChange}
         />
-        {formik.touched.email && formik.errors.email && (
-          <p className="text-red-500 text-xs">{formik.errors.email}</p>
+        {formik.touched.EmployeeNumber && formik.errors.EmployeeNumber && (
+          <p className="text-red-500 text-xs">{formik.errors.EmployeeNumber}</p>
         )}
       </div>
 
