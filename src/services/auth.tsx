@@ -8,12 +8,6 @@ const axiosApiBack = axios.create({
   },
 });
 
-export const postRegister = async (data: unknown) => {
-  const response = await axiosApiBack.post("/auth/signup", data);
-  if (!response.data) throw new Error("No se pudo registrar el usuario");
-  return "Usuario registrado correctamente";
-};
-
 export const postLogin = async (data: Login) => {
   console.log(data)
   const response = await axiosApiBack.post("/auth/signin", data);

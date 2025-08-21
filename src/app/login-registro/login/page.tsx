@@ -7,7 +7,6 @@ import { useFormik } from "formik";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "sonner";
 import * as Yup from "yup";
@@ -34,23 +33,29 @@ const IniciarSesion = () => {
           ...values,
           EmployeeNumber: Number(values.EmployeeNumber),
         });
-        // const dataUser = response.data.user;
-        // const Token = response.data.accessToken;
+        const dataUser = response.data.user;
+        const Token = response.data.accessToken;
 
-        // saveUserData({
-        //   accessToken: Token,
-        //   user: {
-        //     id: dataUser.id,
-        //     EmployeeNumber: dataUser.EmployeeNumber,
-        //     username: dataUser.username,
-        //     isReceptionist: dataUser.isReceptionist,
-        //     isManager: dataUser.isManager,
-        //   },
-        //   isAuth: true,
-        // });
+        saveUserData({
+          accessToken: Token,
+          user: {
+            id: dataUser.id,
+            EmployeeNumber: dataUser.EmployeeNumber,
+            username: dataUser.username,
+            isReceptionist: dataUser.isReceptionist,
+            isManager: dataUser.isManager,
+          },
+          isAuth: true,
+        });
         console.log("hola")
         toast.success("Sesión iniciada correctamente");
-        router.push(routes.admin);
+        if(dataUser.isManager){
+          router.push(routes.admin);
+        }
+        if(dataUser.isReceptionist){
+          router.push(routes.home);
+        }
+        
       } catch (error: unknown) {
         // toast.error(error?.response.data.message || "Error al iniciar sesión");
         console.error(error);
