@@ -11,7 +11,6 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "sonner";
 import * as Yup from "yup";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const IniciarSesion = () => {
   const [loading, setLoading] = useState(false);

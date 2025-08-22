@@ -1,4 +1,4 @@
-interface Iuser {
+export interface Iuser {
     id: number;
     EmployeeNumber: number;
     username: string;
@@ -6,7 +6,7 @@ interface Iuser {
     isManager: boolean;
 }
 
-interface Login {
+export interface Login {
     EmployeeNumber: number;
     password: string;
 }

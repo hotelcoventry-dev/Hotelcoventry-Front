@@ -1,5 +1,6 @@
 "use client";
 
+import { Iuser } from "@/types";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type SaveUserPayLoad = {
