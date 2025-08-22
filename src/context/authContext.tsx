@@ -41,10 +41,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsAuth(false);
       return;
     }
-    const storageType = storage as any;
-    setUser(storage?.user);
-    setIsAuth(storage?.isAuth);
-    setToken(storageType?.token);
+    const storageType = storage as Partial<SaveUserPayLoad>;;
+    setUser(storage.user ?? null);
+    setIsAuth(storage.isAuth ?? false);
+    setToken(storageType.accessToken ?? null);
   }, [])
   return (
     <authContext.Provider value={{ user, token, isAuth, saveUserData, resetUserData }}>
