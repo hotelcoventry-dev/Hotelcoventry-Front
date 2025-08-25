@@ -1,9 +1,19 @@
 "use client"
 
-import { Home, Hotel } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Home, Hotel, Calendar,Warehouse } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function SidebarComponent() {
+  const pathname = usePathname()
+
+  const navItems = [
+    { id: "home", label: "Inicio", icon: Home, href: "/admin" },
+    { id: "reservas", label: "Reservas", icon: Calendar, href: "/admin/reservas" },
+    { id: "habitaciones", label: "Habitaciones", icon: Warehouse, href: "/admin/habitaciones" },
+  ]
+
   return (
     <div className="flex h-screen w-64 flex-col border-r border-gray-200" style={{ backgroundColor: "white" }}>
       {/* Logo Section */}
@@ -28,17 +38,32 @@ export function SidebarComponent() {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-2 p-4">
-        <Button
-          variant="ghost"
-          className="w-full justify-start gap-3 h-12 text-left font-medium transition-all duration-200 hover:shadow-md"
-          style={{
-            backgroundColor: "var(--hotel-blue)",
-            color: "white",
-          }}
-        >
-          <Home className="h-5 w-5" />
-          Inicio
-        </Button>
+        {navItems.map(({ id, label, icon: Icon, href }) => {
+          let isActive = false
+
+          if (href === "/admin") {
+            isActive = pathname === "/admin"
+          } else {
+            isActive = pathname === href || pathname.startsWith(`${href}/`)
+          }
+
+          return (
+            <Link key={id} href={href} className="block">
+              <Button
+                variant="ghost"
+                aria-current={isActive ? "page" : undefined}
+                className="w-full justify-start gap-3 h-12 text-left font-medium transition-all duration-200 hover:shadow-md"
+                style={{
+                  backgroundColor: isActive ? "var(--hotel-blue)" : "transparent",
+                  color: isActive ? "white" : "var(--hotel-blue)",
+                }}
+              >
+                <Icon className="h-5 w-5" />
+                {label}
+              </Button>
+            </Link>
+          )
+        })}
       </nav>
     </div>
   )
