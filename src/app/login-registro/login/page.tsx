@@ -48,15 +48,10 @@ const IniciarSesion = () => {
         });
         console.log("hola")
         toast.success("Sesión iniciada correctamente");
-        if(dataUser.isManager){
-          router.push(routes.admin);
-        }
-        if(dataUser.isReceptionist){
-          router.push(routes.home);
-        }
+        router.push(routes.admin);
         
       } catch (error: unknown) {
-        // toast.error(error?.response.data.message || "Error al iniciar sesión");
+        toast.error( "Error al iniciar sesión");
         console.error(error);
       } finally {
         setLoading(false);
