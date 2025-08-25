@@ -10,7 +10,7 @@ const axiosApiBack = axios.create({
 });
 
 export const postLogin = async (data: Login) => {
-  console.log(BACKEND_URL);
+  console.log("FRONT:", process.env.NEXT_PUBLIC_API_URL);
   const response = await axiosApiBack.post("/auth/signin", data);
   if (!response.data) throw new Error("Credenciales incorrectas");
   return { message: "Sesión iniciada correctamente", data: response.data };

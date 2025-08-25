@@ -11,8 +11,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useAuthContext } from "@/context/authContext"
+import { useRouter } from "next/navigation";
 
 export function NavbarComponent() {
+  const { resetUserData, user, isAuth } = useAuthContext();
+  const router = useRouter();
+  const logout = () => {
+    resetUserData();
+    router.push("/");
+  }
   return (
     <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6 shadow-sm">
       {/* Left side - Title */}
@@ -69,7 +77,7 @@ export function NavbarComponent() {
               <span>Configuración</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer text-red-600">
+            <DropdownMenuItem className="cursor-pointer text-red-600" onClick={logout}>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Cerrar Sesión</span>
             </DropdownMenuItem>
